@@ -1,5 +1,6 @@
 import { POPULATE_CATS } from './constants'
 import faker from 'faker'
+import uuid from  'uuid/v1'
 
 export const fetchCats = () => {
 
@@ -13,6 +14,7 @@ export const fetchCats = () => {
                 const cats = [];
                 data.forEach(catFromApi => {
                     const cat = {
+                        id: uuid(),
                         name: faker.name.findName(),
                         url: catFromApi.url
                     };
