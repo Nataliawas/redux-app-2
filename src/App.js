@@ -13,7 +13,7 @@ import RestrictedRoutes from './RestrictedRoutes';
 import Menu from './Menu';
 import Avatar from './Avatar';
 import Upload from './Upload';
-import Notifications from './Notifications';
+import Notifications from './ui/containers/Notifications';
 import { auth } from './firebase';
 
 
