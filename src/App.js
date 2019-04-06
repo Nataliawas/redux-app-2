@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { Provider } from 'react-redux'
 import {
   BrowserRouter, Route
 } from 'react-router-dom';
-
+import store from './store'
 import Register from './Register';
 import Login from './Login';
 import Logout from './Logout';
@@ -12,8 +13,9 @@ import RestrictedRoutes from './RestrictedRoutes';
 import Menu from './Menu';
 import Avatar from './Avatar';
 import Upload from './Upload';
-
+import Notifications from './Notifications';
 import { auth } from './firebase';
+
 
 class App extends Component {
 
@@ -48,27 +50,30 @@ class App extends Component {
   render() {
     // const cats = this.state.isAuthorized ? <Cats /> : null;
     return (
-      <BrowserRouter>
-        <div>
-          <Menu isAuthorized={this.state.isAuthorized} />
-          {this.state.isAuthorized ? <Avatar user={this.state.user} /> : null}
-          <Route exact path="/" component={this.state.isAuthorized ? Cats : null} />
+      <Provider store={store}>
+        <BrowserRouter>
+          <div>
+            <Notifications />
+            <Menu isAuthorized={this.state.isAuthorized} />
+            {this.state.isAuthorized ? <Avatar user={this.state.user} /> : null}
+            <Route exact path="/" component={this.state.isAuthorized ? Cats : null} />
 
-          <RestrictedRoutes isAuthorized={this.state.isAuthorized}>
-            <Route path="/beer" component={Hello} />
-            <Route path="/beer-list" component={Hello} />
-            <Route path="/create-beer" component={Hello} />
-            <Route path="/upload" component={Upload} />
-          </RestrictedRoutes>
+            <RestrictedRoutes isAuthorized={this.state.isAuthorized}>
+              <Route path="/beer" component={Hello} />
+              <Route path="/beer-list" component={Hello} />
+              <Route path="/create-beer" component={Hello} />
+              <Route path="/upload" component={Upload} />
+            </RestrictedRoutes>
 
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/logout" component={Logout} />
-          {/* {this.state.isAuthorized ? <Cats /> : null} */}
-          {/* {cats} */}
-          {/* {this.renderCats()} */}
-        </div>
-      </BrowserRouter>
+            <Route path="/register" component={Register} />
+            <Route path="/login" component={Login} />
+            <Route path="/logout" component={Logout} />
+            {/* {this.state.isAuthorized ? <Cats /> : null} */}
+            {/* {cats} */}
+            {/* {this.renderCats()} */}
+          </div>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }
